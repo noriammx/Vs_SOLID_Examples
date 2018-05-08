@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c327d4152f8648e7a113a1caca2af92d" Name="Diagram1">
+        <EntityTypeShape EntityType="ABC_SOLIDModel.CAT_PRECIO" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ABC_SOLIDModel.CAT_PRODUCTO" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ABC_SOLIDModel.CAT_ROL" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ABC_SOLIDModel.CAT_USUARIO" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ABC_SOLIDModel.MOVIMIENTO_PRODUCTO" Width="1.5" PointX="9.75" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="ABC_SOLIDModel.R_3" ManuallyRouted="false" />
+        <AssociationConnector Association="ABC_SOLIDModel.R_6" ManuallyRouted="false" />
+        <AssociationConnector Association="ABC_SOLIDModel.R_7" ManuallyRouted="false" />
+        <AssociationConnector Association="ABC_SOLIDModel.R_4" ManuallyRouted="false" />
+        <AssociationConnector Association="ABC_SOLIDModel.R_5" ManuallyRouted="false" />
+        <AssociationConnector Association="ABC_SOLIDModel.R_1" ManuallyRouted="false" />
+        <AssociationConnector Association="ABC_SOLIDModel.R_2" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

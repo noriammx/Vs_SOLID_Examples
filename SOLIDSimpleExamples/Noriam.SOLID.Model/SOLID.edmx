@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ABC_SOLIDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CAT_PRECIO">
+          <Key>
+            <PropertyRef Name="ID_CAT_PRECIO" />
+          </Key>
+          <Property Name="ID_CAT_PRECIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PRECIO_COMPRA" Type="money" />
+          <Property Name="FECHA_INICIO" Type="datetime" Nullable="false" />
+          <Property Name="ACTIVO" Type="bit" />
+          <Property Name="CREADO_POR" Type="int" Nullable="false" />
+          <Property Name="PRECIO_VENTA" Type="money" />
+          <Property Name="ID_CAT_PRODUCTO" Type="int" Nullable="false" />
+          <Property Name="FECHA_FIN" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CAT_PRODUCTO">
+          <Key>
+            <PropertyRef Name="ID_CAT_PRODUCTO" />
+          </Key>
+          <Property Name="ID_CAT_PRODUCTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MARCA" Type="nvarchar(max)" />
+          <Property Name="DESCRIPCION" Type="nvarchar(max)" />
+          <Property Name="EXISTENCIA" Type="int" />
+          <Property Name="CREADO_POR" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CAT_ROL">
+          <Key>
+            <PropertyRef Name="ID_CAT_ROL" />
+          </Key>
+          <Property Name="ID_CAT_ROL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CAT_USUARIO">
+          <Key>
+            <PropertyRef Name="ID_CAT_USUARIO" />
+          </Key>
+          <Property Name="ID_CAT_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar(max)" />
+          <Property Name="AP_PATERNO" Type="nvarchar(max)" />
+          <Property Name="AP_MATERNO" Type="nvarchar(max)" />
+          <Property Name="USUARIO" Type="nvarchar(max)" />
+          <Property Name="CONTRASENIA" Type="nvarchar(max)" />
+          <Property Name="ID_CAT_ROL" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MOVIMIENTO_PRODUCTO">
+          <Key>
+            <PropertyRef Name="ID_MOVIMIENTO_PRODUCTO" />
+          </Key>
+          <Property Name="ID_MOVIMIENTO_PRODUCTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CANTIDAD" Type="int" Nullable="false" />
+          <Property Name="ESENTRADA" Type="bit" Nullable="false" />
+          <Property Name="FECHA_MOVIMIENTO" Type="datetime" Nullable="false" />
+          <Property Name="CREADO_POR" Type="int" Nullable="false" />
+          <Property Name="ID_CAT_PRODUCTO" Type="int" Nullable="false" />
+          <Property Name="ID_CAT_PRECIO" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="R_1">
+          <End Role="CAT_ROL" Type="Self.CAT_ROL" Multiplicity="1" />
+          <End Role="CAT_USUARIO" Type="Self.CAT_USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_ROL">
+              <PropertyRef Name="ID_CAT_ROL" />
+            </Principal>
+            <Dependent Role="CAT_USUARIO">
+              <PropertyRef Name="ID_CAT_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_2">
+          <End Role="CAT_USUARIO" Type="Self.CAT_USUARIO" Multiplicity="1" />
+          <End Role="MOVIMIENTO_PRODUCTO" Type="Self.MOVIMIENTO_PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_USUARIO">
+              <PropertyRef Name="ID_CAT_USUARIO" />
+            </Principal>
+            <Dependent Role="MOVIMIENTO_PRODUCTO">
+              <PropertyRef Name="CREADO_POR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_3">
+          <End Role="CAT_USUARIO" Type="Self.CAT_USUARIO" Multiplicity="1" />
+          <End Role="CAT_PRECIO" Type="Self.CAT_PRECIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_USUARIO">
+              <PropertyRef Name="ID_CAT_USUARIO" />
+            </Principal>
+            <Dependent Role="CAT_PRECIO">
+              <PropertyRef Name="CREADO_POR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_4">
+          <End Role="CAT_USUARIO" Type="Self.CAT_USUARIO" Multiplicity="1" />
+          <End Role="CAT_PRODUCTO" Type="Self.CAT_PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_USUARIO">
+              <PropertyRef Name="ID_CAT_USUARIO" />
+            </Principal>
+            <Dependent Role="CAT_PRODUCTO">
+              <PropertyRef Name="CREADO_POR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_5">
+          <End Role="CAT_PRODUCTO" Type="Self.CAT_PRODUCTO" Multiplicity="1" />
+          <End Role="MOVIMIENTO_PRODUCTO" Type="Self.MOVIMIENTO_PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PRODUCTO">
+              <PropertyRef Name="ID_CAT_PRODUCTO" />
+            </Principal>
+            <Dependent Role="MOVIMIENTO_PRODUCTO">
+              <PropertyRef Name="ID_CAT_PRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_6">
+          <End Role="CAT_PRODUCTO" Type="Self.CAT_PRODUCTO" Multiplicity="1" />
+          <End Role="CAT_PRECIO" Type="Self.CAT_PRECIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PRODUCTO">
+              <PropertyRef Name="ID_CAT_PRODUCTO" />
+            </Principal>
+            <Dependent Role="CAT_PRECIO">
+              <PropertyRef Name="ID_CAT_PRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_7">
+          <End Role="CAT_PRECIO" Type="Self.CAT_PRECIO" Multiplicity="1" />
+          <End Role="MOVIMIENTO_PRODUCTO" Type="Self.MOVIMIENTO_PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PRECIO">
+              <PropertyRef Name="ID_CAT_PRECIO" />
+            </Principal>
+            <Dependent Role="MOVIMIENTO_PRODUCTO">
+              <PropertyRef Name="ID_CAT_PRECIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ABC_SOLIDModelStoreContainer">
+          <EntitySet Name="CAT_PRECIO" EntityType="Self.CAT_PRECIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_PRODUCTO" EntityType="Self.CAT_PRODUCTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_ROL" EntityType="Self.CAT_ROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_USUARIO" EntityType="Self.CAT_USUARIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MOVIMIENTO_PRODUCTO" EntityType="Self.MOVIMIENTO_PRODUCTO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="R_1" Association="Self.R_1">
+            <End Role="CAT_ROL" EntitySet="CAT_ROL" />
+            <End Role="CAT_USUARIO" EntitySet="CAT_USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="R_2" Association="Self.R_2">
+            <End Role="CAT_USUARIO" EntitySet="CAT_USUARIO" />
+            <End Role="MOVIMIENTO_PRODUCTO" EntitySet="MOVIMIENTO_PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="R_3" Association="Self.R_3">
+            <End Role="CAT_USUARIO" EntitySet="CAT_USUARIO" />
+            <End Role="CAT_PRECIO" EntitySet="CAT_PRECIO" />
+          </AssociationSet>
+          <AssociationSet Name="R_4" Association="Self.R_4">
+            <End Role="CAT_USUARIO" EntitySet="CAT_USUARIO" />
+            <End Role="CAT_PRODUCTO" EntitySet="CAT_PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="R_5" Association="Self.R_5">
+            <End Role="CAT_PRODUCTO" EntitySet="CAT_PRODUCTO" />
+            <End Role="MOVIMIENTO_PRODUCTO" EntitySet="MOVIMIENTO_PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="R_6" Association="Self.R_6">
+            <End Role="CAT_PRODUCTO" EntitySet="CAT_PRODUCTO" />
+            <End Role="CAT_PRECIO" EntitySet="CAT_PRECIO" />
+          </AssociationSet>
+          <AssociationSet Name="R_7" Association="Self.R_7">
+            <End Role="CAT_PRECIO" EntitySet="CAT_PRECIO" />
+            <End Role="MOVIMIENTO_PRODUCTO" EntitySet="MOVIMIENTO_PRODUCTO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ABC_SOLIDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CAT_PRECIO">
+          <Key>
+            <PropertyRef Name="ID_CAT_PRECIO" />
+          </Key>
+          <Property Name="ID_CAT_PRECIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PRECIO_COMPRA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FECHA_INICIO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ACTIVO" Type="Boolean" />
+          <Property Name="CREADO_POR" Type="Int32" Nullable="false" />
+          <Property Name="PRECIO_VENTA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ID_CAT_PRODUCTO" Type="Int32" Nullable="false" />
+          <Property Name="FECHA_FIN" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CAT_USUARIO" Relationship="Self.R_3" FromRole="CAT_PRECIO" ToRole="CAT_USUARIO" />
+          <NavigationProperty Name="CAT_PRODUCTO" Relationship="Self.R_6" FromRole="CAT_PRECIO" ToRole="CAT_PRODUCTO" />
+          <NavigationProperty Name="MOVIMIENTO_PRODUCTO" Relationship="Self.R_7" FromRole="CAT_PRECIO" ToRole="MOVIMIENTO_PRODUCTO" />
+        </EntityType>
+        <EntityType Name="CAT_PRODUCTO">
+          <Key>
+            <PropertyRef Name="ID_CAT_PRODUCTO" />
+          </Key>
+          <Property Name="ID_CAT_PRODUCTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MARCA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EXISTENCIA" Type="Int32" />
+          <Property Name="CREADO_POR" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CAT_PRECIO" Relationship="Self.R_6" FromRole="CAT_PRODUCTO" ToRole="CAT_PRECIO" />
+          <NavigationProperty Name="CAT_USUARIO" Relationship="Self.R_4" FromRole="CAT_PRODUCTO" ToRole="CAT_USUARIO" />
+          <NavigationProperty Name="MOVIMIENTO_PRODUCTO" Relationship="Self.R_5" FromRole="CAT_PRODUCTO" ToRole="MOVIMIENTO_PRODUCTO" />
+        </EntityType>
+        <EntityType Name="CAT_ROL">
+          <Key>
+            <PropertyRef Name="ID_CAT_ROL" />
+          </Key>
+          <Property Name="ID_CAT_ROL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CAT_USUARIO" Relationship="Self.R_1" FromRole="CAT_ROL" ToRole="CAT_USUARIO" />
+        </EntityType>
+        <EntityType Name="CAT_USUARIO">
+          <Key>
+            <PropertyRef Name="ID_CAT_USUARIO" />
+          </Key>
+          <Property Name="ID_CAT_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AP_PATERNO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AP_MATERNO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="USUARIO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CONTRASENIA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID_CAT_ROL" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CAT_PRECIO" Relationship="Self.R_3" FromRole="CAT_USUARIO" ToRole="CAT_PRECIO" />
+          <NavigationProperty Name="CAT_PRODUCTO" Relationship="Self.R_4" FromRole="CAT_USUARIO" ToRole="CAT_PRODUCTO" />
+          <NavigationProperty Name="CAT_ROL" Relationship="Self.R_1" FromRole="CAT_USUARIO" ToRole="CAT_ROL" />
+          <NavigationProperty Name="MOVIMIENTO_PRODUCTO" Relationship="Self.R_2" FromRole="CAT_USUARIO" ToRole="MOVIMIENTO_PRODUCTO" />
+        </EntityType>
+        <EntityType Name="MOVIMIENTO_PRODUCTO">
+          <Key>
+            <PropertyRef Name="ID_MOVIMIENTO_PRODUCTO" />
+          </Key>
+          <Property Name="ID_MOVIMIENTO_PRODUCTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CANTIDAD" Type="Int32" Nullable="false" />
+          <Property Name="ESENTRADA" Type="Boolean" Nullable="false" />
+          <Property Name="FECHA_MOVIMIENTO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CREADO_POR" Type="Int32" Nullable="false" />
+          <Property Name="ID_CAT_PRODUCTO" Type="Int32" Nullable="false" />
+          <Property Name="ID_CAT_PRECIO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CAT_PRECIO" Relationship="Self.R_7" FromRole="MOVIMIENTO_PRODUCTO" ToRole="CAT_PRECIO" />
+          <NavigationProperty Name="CAT_PRODUCTO" Relationship="Self.R_5" FromRole="MOVIMIENTO_PRODUCTO" ToRole="CAT_PRODUCTO" />
+          <NavigationProperty Name="CAT_USUARIO" Relationship="Self.R_2" FromRole="MOVIMIENTO_PRODUCTO" ToRole="CAT_USUARIO" />
+        </EntityType>
+        <Association Name="R_3">
+          <End Role="CAT_USUARIO" Type="Self.CAT_USUARIO" Multiplicity="1" />
+          <End Role="CAT_PRECIO" Type="Self.CAT_PRECIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_USUARIO">
+              <PropertyRef Name="ID_CAT_USUARIO" />
+            </Principal>
+            <Dependent Role="CAT_PRECIO">
+              <PropertyRef Name="CREADO_POR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_6">
+          <End Role="CAT_PRODUCTO" Type="Self.CAT_PRODUCTO" Multiplicity="1" />
+          <End Role="CAT_PRECIO" Type="Self.CAT_PRECIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PRODUCTO">
+              <PropertyRef Name="ID_CAT_PRODUCTO" />
+            </Principal>
+            <Dependent Role="CAT_PRECIO">
+              <PropertyRef Name="ID_CAT_PRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_7">
+          <End Role="CAT_PRECIO" Type="Self.CAT_PRECIO" Multiplicity="1" />
+          <End Role="MOVIMIENTO_PRODUCTO" Type="Self.MOVIMIENTO_PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PRECIO">
+              <PropertyRef Name="ID_CAT_PRECIO" />
+            </Principal>
+            <Dependent Role="MOVIMIENTO_PRODUCTO">
+              <PropertyRef Name="ID_CAT_PRECIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_4">
+          <End Role="CAT_USUARIO" Type="Self.CAT_USUARIO" Multiplicity="1" />
+          <End Role="CAT_PRODUCTO" Type="Self.CAT_PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_USUARIO">
+              <PropertyRef Name="ID_CAT_USUARIO" />
+            </Principal>
+            <Dependent Role="CAT_PRODUCTO">
+              <PropertyRef Name="CREADO_POR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_5">
+          <End Role="CAT_PRODUCTO" Type="Self.CAT_PRODUCTO" Multiplicity="1" />
+          <End Role="MOVIMIENTO_PRODUCTO" Type="Self.MOVIMIENTO_PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_PRODUCTO">
+              <PropertyRef Name="ID_CAT_PRODUCTO" />
+            </Principal>
+            <Dependent Role="MOVIMIENTO_PRODUCTO">
+              <PropertyRef Name="ID_CAT_PRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_1">
+          <End Role="CAT_ROL" Type="Self.CAT_ROL" Multiplicity="1" />
+          <End Role="CAT_USUARIO" Type="Self.CAT_USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_ROL">
+              <PropertyRef Name="ID_CAT_ROL" />
+            </Principal>
+            <Dependent Role="CAT_USUARIO">
+              <PropertyRef Name="ID_CAT_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_2">
+          <End Role="CAT_USUARIO" Type="Self.CAT_USUARIO" Multiplicity="1" />
+          <End Role="MOVIMIENTO_PRODUCTO" Type="Self.MOVIMIENTO_PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_USUARIO">
+              <PropertyRef Name="ID_CAT_USUARIO" />
+            </Principal>
+            <Dependent Role="MOVIMIENTO_PRODUCTO">
+              <PropertyRef Name="CREADO_POR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ABC_SOLIDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CAT_PRECIO" EntityType="Self.CAT_PRECIO" />
+          <EntitySet Name="CAT_PRODUCTO" EntityType="Self.CAT_PRODUCTO" />
+          <EntitySet Name="CAT_ROL" EntityType="Self.CAT_ROL" />
+          <EntitySet Name="CAT_USUARIO" EntityType="Self.CAT_USUARIO" />
+          <EntitySet Name="MOVIMIENTO_PRODUCTO" EntityType="Self.MOVIMIENTO_PRODUCTO" />
+          <AssociationSet Name="R_3" Association="Self.R_3">
+            <End Role="CAT_USUARIO" EntitySet="CAT_USUARIO" />
+            <End Role="CAT_PRECIO" EntitySet="CAT_PRECIO" />
+          </AssociationSet>
+          <AssociationSet Name="R_6" Association="Self.R_6">
+            <End Role="CAT_PRODUCTO" EntitySet="CAT_PRODUCTO" />
+            <End Role="CAT_PRECIO" EntitySet="CAT_PRECIO" />
+          </AssociationSet>
+          <AssociationSet Name="R_7" Association="Self.R_7">
+            <End Role="CAT_PRECIO" EntitySet="CAT_PRECIO" />
+            <End Role="MOVIMIENTO_PRODUCTO" EntitySet="MOVIMIENTO_PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="R_4" Association="Self.R_4">
+            <End Role="CAT_USUARIO" EntitySet="CAT_USUARIO" />
+            <End Role="CAT_PRODUCTO" EntitySet="CAT_PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="R_5" Association="Self.R_5">
+            <End Role="CAT_PRODUCTO" EntitySet="CAT_PRODUCTO" />
+            <End Role="MOVIMIENTO_PRODUCTO" EntitySet="MOVIMIENTO_PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="R_1" Association="Self.R_1">
+            <End Role="CAT_ROL" EntitySet="CAT_ROL" />
+            <End Role="CAT_USUARIO" EntitySet="CAT_USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="R_2" Association="Self.R_2">
+            <End Role="CAT_USUARIO" EntitySet="CAT_USUARIO" />
+            <End Role="MOVIMIENTO_PRODUCTO" EntitySet="MOVIMIENTO_PRODUCTO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ABC_SOLIDModelStoreContainer" CdmEntityContainer="ABC_SOLIDEntities">
+          <EntitySetMapping Name="CAT_PRECIO">
+            <EntityTypeMapping TypeName="ABC_SOLIDModel.CAT_PRECIO">
+              <MappingFragment StoreEntitySet="CAT_PRECIO">
+                <ScalarProperty Name="ID_CAT_PRECIO" ColumnName="ID_CAT_PRECIO" />
+                <ScalarProperty Name="PRECIO_COMPRA" ColumnName="PRECIO_COMPRA" />
+                <ScalarProperty Name="FECHA_INICIO" ColumnName="FECHA_INICIO" />
+                <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+                <ScalarProperty Name="CREADO_POR" ColumnName="CREADO_POR" />
+                <ScalarProperty Name="PRECIO_VENTA" ColumnName="PRECIO_VENTA" />
+                <ScalarProperty Name="ID_CAT_PRODUCTO" ColumnName="ID_CAT_PRODUCTO" />
+                <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_PRODUCTO">
+            <EntityTypeMapping TypeName="ABC_SOLIDModel.CAT_PRODUCTO">
+              <MappingFragment StoreEntitySet="CAT_PRODUCTO">
+                <ScalarProperty Name="ID_CAT_PRODUCTO" ColumnName="ID_CAT_PRODUCTO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="MARCA" ColumnName="MARCA" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="EXISTENCIA" ColumnName="EXISTENCIA" />
+                <ScalarProperty Name="CREADO_POR" ColumnName="CREADO_POR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_ROL">
+            <EntityTypeMapping TypeName="ABC_SOLIDModel.CAT_ROL">
+              <MappingFragment StoreEntitySet="CAT_ROL">
+                <ScalarProperty Name="ID_CAT_ROL" ColumnName="ID_CAT_ROL" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_USUARIO">
+            <EntityTypeMapping TypeName="ABC_SOLIDModel.CAT_USUARIO">
+              <MappingFragment StoreEntitySet="CAT_USUARIO">
+                <ScalarProperty Name="ID_CAT_USUARIO" ColumnName="ID_CAT_USUARIO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="AP_PATERNO" ColumnName="AP_PATERNO" />
+                <ScalarProperty Name="AP_MATERNO" ColumnName="AP_MATERNO" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="CONTRASENIA" ColumnName="CONTRASENIA" />
+                <ScalarProperty Name="ID_CAT_ROL" ColumnName="ID_CAT_ROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MOVIMIENTO_PRODUCTO">
+            <EntityTypeMapping TypeName="ABC_SOLIDModel.MOVIMIENTO_PRODUCTO">
+              <MappingFragment StoreEntitySet="MOVIMIENTO_PRODUCTO">
+                <ScalarProperty Name="ID_MOVIMIENTO_PRODUCTO" ColumnName="ID_MOVIMIENTO_PRODUCTO" />
+                <ScalarProperty Name="CANTIDAD" ColumnName="CANTIDAD" />
+                <ScalarProperty Name="ESENTRADA" ColumnName="ESENTRADA" />
+                <ScalarProperty Name="FECHA_MOVIMIENTO" ColumnName="FECHA_MOVIMIENTO" />
+                <ScalarProperty Name="CREADO_POR" ColumnName="CREADO_POR" />
+                <ScalarProperty Name="ID_CAT_PRODUCTO" ColumnName="ID_CAT_PRODUCTO" />
+                <ScalarProperty Name="ID_CAT_PRECIO" ColumnName="ID_CAT_PRECIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
