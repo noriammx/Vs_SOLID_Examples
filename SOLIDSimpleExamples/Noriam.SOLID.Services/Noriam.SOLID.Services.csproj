@@ -30,7 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,16 +47,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\PrecioDTO.cs" />
+    <Compile Include="DTO\ProductoDTO.cs" />
+    <Compile Include="DTO\RolDTO.cs" />
+    <Compile Include="DTO\UsuarioDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Contract\IGenericRepository.cs" />
+    <Compile Include="Repository\Impl\GenericRepository.cs" />
+    <Compile Include="Service\Contract\IInventarioService.cs" />
+    <Compile Include="Service\Contract\IProductoService.cs" />
+    <Compile Include="Service\Contract\IUsuarioService.cs" />
+    <Compile Include="UoW\Contract\IGenericUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Const\" />
-    <Folder Include="DTO\" />
     <Folder Include="Maps\" />
-    <Folder Include="Repository\" />
-    <Folder Include="Service\" />
-    <Folder Include="UoW\" />
+    <Folder Include="Service\Impl\" />
+    <Folder Include="UoW\Impl\" />
     <Folder Include="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Noriam.SOLID.Model\Noriam.SOLID.Model.csproj">
+      <Project>{b7a5522b-ad5f-4c43-8b12-d0c32f168257}</Project>
+      <Name>Noriam.SOLID.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
