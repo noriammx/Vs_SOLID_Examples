@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Noriam.SOLID.Services.UoW.Contract
 {
-    public interface IGenericUnitOfWork:IDisposable
+    public interface IGenericUnitOfWork
     {
         IGenericRepository<T> GetRepoInstance<T>() where T : class;
 
