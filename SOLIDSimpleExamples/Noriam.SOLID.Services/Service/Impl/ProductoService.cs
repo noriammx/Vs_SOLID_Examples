@@ -42,7 +42,7 @@ namespace Noriam.SOLID.Services.Service.Impl
             {
                 throw ex;
             }
-        }
+        }        
 
         public void DeleteProducto(int IdProducto)
         {

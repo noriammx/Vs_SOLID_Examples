@@ -92,7 +92,7 @@ namespace Noriam.SOLID.Services.Test.Test
             var producto = new ProductoDTO
             {
                 Existencia = 10,
-                Marca = "Lacoste",
+                Marca = "Marino",
                 Nombre = "Playera Polo"
             };
 

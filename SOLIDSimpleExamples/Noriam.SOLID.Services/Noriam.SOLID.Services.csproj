@@ -83,6 +83,7 @@
     <Compile Include="Maps\IMapToEntity.cs" />
     <Compile Include="Maps\PrecioMap.cs" />
     <Compile Include="Maps\ProductoMap.cs" />
+    <Compile Include="Maps\UsuarioMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Contract\IGenericRepository.cs" />
     <Compile Include="Repository\Impl\GenericRepository.cs" />
@@ -90,12 +91,16 @@
     <Compile Include="Service\Contract\IProductoService.cs" />
     <Compile Include="Service\Contract\IUsuarioService.cs" />
     <Compile Include="Service\Impl\ProductoService.cs" />
+    <Compile Include="Service\Impl\UsuarioService.cs" />
+    <Compile Include="Test\Test.cs" />
     <Compile Include="UoW\Contract\IGenericUnitOfWork.cs" />
     <Compile Include="UoW\Impl\GenericUnitOfWork.cs" />
     <Compile Include="Utils\Impl\SolidMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Const\" />
+    <Folder Include="Reports\" />
+    <Folder Include="Resources\" />
     <Folder Include="Utils\Contract\" />
   </ItemGroup>
   <ItemGroup>
