@@ -48,11 +48,7 @@ namespace Noriam.SOLID.Services.Repository.Impl
             IQueryable<T> query = _context.Set<T>();
             return query;
         }
-
-        public void Save()
-        {
-            _context.SaveChanges();
-        }
+        
     }
 }
 

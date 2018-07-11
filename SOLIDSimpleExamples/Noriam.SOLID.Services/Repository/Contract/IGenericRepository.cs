@@ -13,7 +13,6 @@ namespace Noriam.SOLID.Services.Repository.Contract
         IQueryable<T> Find(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void Delete(T entity);
-        void Edit(T entity);
-        void Save();
+        void Edit(T entity);     
     }
 }
